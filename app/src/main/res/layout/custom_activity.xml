@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#7e7e7e"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="48dp">
+
+        <LinearLayout
+            android:id="@+id/colums"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="72dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/width"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="12dp"
+                android:padding="6dp"
+                android:text="WIDTH"
+                android:textColor="#000"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="12dp"
+                android:padding="6dp"
+                android:text="HEIGHT"
+                android:textColor="#000"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/mines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="12dp"
+                android:padding="6dp"
+                android:text="MINES"
+                android:textColor="#000"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/colums"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/width_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="12dp"
+                android:background="#fff"
+                android:gravity="center"
+                android:minWidth="120dp"
+                android:padding="6dp"
+                android:text="0"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:inputType="number"
+                />
+
+            <EditText
+                android:id="@+id/height_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="12dp"
+                android:background="#fff"
+                android:gravity="center"
+                android:minWidth="120dp"
+                android:padding="6dp"
+                android:text="0"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:inputType="number"
+                />
+
+            <EditText
+                android:id="@+id/mines_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="12dp"
+                android:background="#fff"
+                android:gravity="center"
+                android:minWidth="120dp"
+                android:padding="6dp"
+                android:text="0"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:inputType="number"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/ok"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:text="OK"
+        android:textColor="#fff"
+        android:textSize="18sp"/>
+</LinearLayout>

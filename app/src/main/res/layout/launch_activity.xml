@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#7e7e7e"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/easy"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:minWidth="120dp"
+        android:text="EASY"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/medium"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:minWidth="120dp"
+        android:text="MEDIUM"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/expert"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:minWidth="120dp"
+        android:text="EXPERT"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/custom"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:minWidth="120dp"
+        android:text="CUSTOM"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        />
+</LinearLayout>
