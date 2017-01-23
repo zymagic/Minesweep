@@ -1,5 +1,7 @@
 package game.minesweep;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -11,7 +13,7 @@ import java.util.Random;
 
 public class Core {
 
-    private static Random sRandom = new Random(47);
+    private static Random sRandom = new Random(47 + android.os.Process.myPid() + android.os.Process.myUid());
 
     private ArrayList<Grid> data;
 
@@ -82,7 +84,7 @@ public class Core {
         int y = from.index / width;
         for (int m = -1; m <= 1; m++) {
             for (int n = -1; n <= 1; n++) {
-                if (x + m < 0 || x + m >= width || y + n < 0 || y + n >= height || x == 0 && y == 0) {
+                if (x + m < 0 || x + m >= width || y + n < 0 || y + n >= height || m == 0 && n == 0) {
                     continue;
                 }
                 Grid around = data.get((y + n) * width + (x + m));
@@ -100,7 +102,12 @@ public class Core {
     }
 
     public void restart() {
-
+        for (Grid g : data) {
+            g.cause = false;
+            g.state = Grid.STATE_NORMAL;
+        }
+        state = 0;
+        total = width * height;
     }
 
     public void dig(int x, int y, int[] dirty) {
@@ -111,6 +118,7 @@ public class Core {
         if (grid.value == -1) {
             state = -1;
             grid.cause = true;
+            markDirty(grid, dirty);
         } else if (grid.value == 0) {
             if (grid.open(true)) {
                 markDirty(grid, dirty);
@@ -123,14 +131,14 @@ public class Core {
                     total--;
                 }
             }
-            if (total == mines) {
-                state = 1;
-            }
         } else {
-            if (grid.state == Grid.STATE_NORMAL) {
-                grid.state = Grid.STATE_OPEN;
+            if (grid.open(true)) {
                 markDirty(grid, dirty);
+                total--;
             }
+        }
+        if (total == mines) {
+            state = 1;
         }
     }
 

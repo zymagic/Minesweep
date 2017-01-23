@@ -24,7 +24,7 @@ public class MineGrid extends View implements GameView{
     private static final int COLOR_BASE = 0xff666666;
     private static final int COLOR_NORMAL = 0xff6f91bd;
     private static final int COLOR_CAUSE = 0xffff0000;
-    private static final int COLOR_MINE = 0xff000000;
+    private static final int COLOR_MINE = 0xff999999;
     private static final int COLOR_QUESTION = 0xfffef100;
     private static final int COLOR_FLAG = 0xffec1b42;
     private static final int[] COLOR_NUMBER = new int[] {
@@ -160,6 +160,7 @@ public class MineGrid extends View implements GameView{
     public void endGame(boolean win) {
         isAvailable = false;
         endState = win ? 1 : -1;
+        invalidate();
     }
 
     @Override
@@ -349,7 +350,7 @@ public class MineGrid extends View implements GameView{
         float wh = (rect.height() - spacing) / countY;
         int vx = (int) ((x - rect.left - spacing / 2f) / wu);
         int vy = (int) ((y - rect.top - spacing / 2f) / wh);
-        if (x < 0 || x >= countX || y < 0 || y >= countY) {
+        if (vx < 0 || vx >= countX || vy < 0 || vy >= countY) {
             return;
         }
         control.sweep(vx, vy);
@@ -402,11 +403,15 @@ public class MineGrid extends View implements GameView{
                 } else if (grid.value == -1) {
                     paint.setColor(COLOR_MINE);
                 } else {
-                    paint.setColor(COLOR_BASE);
+                    paint.setColor(COLOR_NORMAL);
                 }
             }
         } else {
-            paint.setColor(COLOR_BASE);
+            if (endState == -1 && grid.cause && grid.value == -1) {
+                paint.setColor(COLOR_CAUSE);
+            } else {
+                paint.setColor(COLOR_BASE);
+            }
         }
         canvas.drawRect(l, t, l + w, t + h, paint);
 
