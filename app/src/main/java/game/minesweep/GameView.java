@@ -9,6 +9,6 @@ public interface GameView {
     void setMines(int mines);
     void update(int[] dirty);
     void newGame();
-    void endGame(boolean win);
+    void endGame(int state, int time);
     void setGameControl(GameControl control);
 }

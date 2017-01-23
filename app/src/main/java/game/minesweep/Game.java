@@ -97,10 +97,10 @@ public class Game {
             core.getState(state);
             if (state.state == -1) {
                 timer.stop();
-                gameView.endGame(false);
+                gameView.endGame(-1, timer.seconds);
             } else if (state.state == 1) {
                 timer.stop();
-                gameView.endGame(true);
+                gameView.endGame(GameRecord.newRecord(context, timer.seconds, GameSettings.getKey(width, height, mines)) ? 1 : 0, timer.seconds);
             } else {
                 if (dirty[0] <= dirty[2] && dirty[1] <= dirty[3]) {
                     gameView.update(dirty);

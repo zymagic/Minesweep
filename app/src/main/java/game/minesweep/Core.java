@@ -1,7 +1,5 @@
 package game.minesweep;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,7 +11,7 @@ import java.util.Random;
 
 public class Core {
 
-    private static Random sRandom = new Random(47 + android.os.Process.myPid() + android.os.Process.myUid());
+    private static Random sRandom = new Random(47 + android.os.Process.myPid() + android.os.Process.myUid() + ((System.currentTimeMillis() / 1000) % 113));
 
     private ArrayList<Grid> data;
 
@@ -46,7 +44,7 @@ public class Core {
             hash.remove(grid);
             retain.remove(grid);
             int x = grid.index % width;
-            int y = grid.index / height;
+            int y = grid.index / width;
             for (int m = -1; m <= 1; m++) {
                 for (int n = -1; n <= 1; n++) {
                     if (x + m < 0 || x + m >= width || y + n < 0 || y + n >= height || m == 0 && n == 0) {
@@ -63,8 +61,8 @@ public class Core {
 
         groups = new HashMap<>();
 
-        for (int i = 0; i < retain.size(); i++) {
-            Grid grid = retain.get(i);
+        while (retain.size() > 0) {
+            Grid grid = retain.getFirst();
             if (grid.key == null) {
                 grid.key = grid;
             }
@@ -115,6 +113,9 @@ public class Core {
             return;
         }
         Grid grid = data.get(y * width + x);
+        if (grid.state == Grid.STATE_FLAG || grid.state == Grid.STATE_OPEN) {
+            return;
+        }
         if (grid.value == -1) {
             state = -1;
             grid.cause = true;
@@ -168,7 +169,7 @@ public class Core {
         int sum = 0;
         for (int m = -1; m <= 1; m++) {
             for (int n = -1; n <= 1; n++) {
-                if (x + m < 0 || x + m >= width || y + n < 0 || y + n >= width || m == 0 && n == 0) {
+                if (x + m < 0 || x + m >= width || y + n < 0 || y + n >= height || m == 0 && n == 0) {
                     continue;
                 }
                 Grid around = data.get((y + n) * width + (x + m));

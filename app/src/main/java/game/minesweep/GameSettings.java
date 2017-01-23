@@ -101,7 +101,7 @@ public class GameSettings implements Parcelable {
     }
 
     public static GameSettings getExpertSettings() {
-        return new GameSettings(expertCountX, expertCountX, expertMines);
+        return new GameSettings(expertCountX, expertCountY, expertMines);
     }
 
     public static GameSettings getCustomSettings(Context context) {

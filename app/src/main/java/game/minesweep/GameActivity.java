@@ -2,6 +2,7 @@ package game.minesweep;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -43,7 +44,7 @@ public class GameActivity extends Activity implements GameView, View.OnClickList
         }
         setContentView(R.layout.minesweep);
 
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         mines = (TextView) findViewById(R.id.mines);
         time = (TextView) findViewById(R.id.time);
@@ -88,7 +89,7 @@ public class GameActivity extends Activity implements GameView, View.OnClickList
 
     @Override
     public void setMines(int mines) {
-        this.mines.setText("¤ x " + mines);
+        this.mines.setText("¤ x\n" + mines);
     }
 
     @Override
@@ -101,13 +102,37 @@ public class GameActivity extends Activity implements GameView, View.OnClickList
         isDigMode = true;
         digMode.setBackgroundColor(0xffff0000);
         time.setText("00:00");
-        mines.setText("¤ x " + game.getMines());
+        mines.setText("¤ x\n" + game.getMines());
         grid.newGame();
     }
 
     @Override
-    public void endGame(boolean win) {
-        grid.endGame(win);
+    public void endGame(int win, int time) {
+        grid.endGame(win, time);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(win >= 0 ? "Win" : "Game Over");
+        builder.setMessage(win < 0 ? "Bad Luck ..." : win == 0 ? "You Win ! Yes !" : ("New Record: " + GameRecord.formatTime(time) + " !"));
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                switch (i) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        game.newGame();
+                        break;
+                    case DialogInterface.BUTTON_NEUTRAL:
+                        game.restartGame();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        finish();
+                }
+            }
+        };
+        builder.setPositiveButton("New Game", listener);
+        builder.setNeutralButton("Restart", listener);
+        builder.setNegativeButton("Quit", listener);
+
+        builder.create().show();
     }
 
     @Override

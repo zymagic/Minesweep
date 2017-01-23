@@ -157,9 +157,10 @@ public class MineGrid extends View implements GameView{
         invalidate(l, t, r, b);
     }
 
-    public void endGame(boolean win) {
+    @Override
+    public void endGame(int win, int time) {
         isAvailable = false;
-        endState = win ? 1 : -1;
+        endState = win >= 0 ? 1 : -1;
         invalidate();
     }
 
